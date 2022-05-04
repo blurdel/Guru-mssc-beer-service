@@ -21,6 +21,8 @@ public class BeerController {
 
 	@GetMapping("/{beerId}")
 	public ResponseEntity<BeerDto> getBeer(@PathVariable("beerId") UUID beerId) {
+		
+		// TODO: impl
 		return new ResponseEntity<>(BeerDto.builder().build(), HttpStatus.OK);
 	}
 	
@@ -31,7 +33,7 @@ public class BeerController {
 		return new ResponseEntity(HttpStatus.CREATED);
 	}
 	
-	@PutMapping("{beerId}")
+	@PutMapping("/{beerId}")
 	public ResponseEntity updateBeer(@PathVariable("beerId") UUID beerId, @RequestBody BeerDto beerDto) {
 		
 		// TODO: impl		
