@@ -32,7 +32,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @ExtendWith(RestDocumentationExtension.class)
-@AutoConfigureRestDocs
+
+// Added src/test/resources/org/springframework/restdocs/templates/request-fields.snippet
+//This changes values in gen-snippets files down target/generated-snippets/v1/beer/
+@AutoConfigureRestDocs(uriScheme = "https", uriHost = "dev.springframework.guru", uriPort = 80) 
+
 @WebMvcTest(BeerController.class)
 @ComponentScan(basePackages = "com.blurdel.msscbeerservice.web.mappers")
 class BeerControllerTest {
@@ -54,9 +58,9 @@ class BeerControllerTest {
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				// added for REST docs
-				.andDo(document("v1/beer", 
+				.andDo(document("v1/beer-get", 
 						pathParameters(
-								parameterWithName("beerId").description("UUID os desired beer to get.")
+								parameterWithName("beerId").description("UUID of desired beer to get.")
 						),
 						// below not a real param - just testing REST doc
 						requestParameters(
@@ -89,7 +93,7 @@ class BeerControllerTest {
 				.content(beerDtoJson))
 				.andExpect(status().isCreated())
 				// added for REST docs
-				.andDo(document("v1/beer",
+				.andDo(document("v1/beer-new",
 						requestFields(
 								fields.withPath("id").ignored(),
                                 fields.withPath("version").ignored(),
