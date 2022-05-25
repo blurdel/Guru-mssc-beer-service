@@ -11,6 +11,7 @@ import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
@@ -50,6 +51,9 @@ class BeerControllerTest {
 	@Test
 	void getBeerById() throws Exception {
 
+		// This works with fields.withPath() below
+		ConstrainedFields fields = new ConstrainedFields(BeerDto.class);
+		
 		// Code/template change below adding {beerId} to URL required due to REST docs
 		mockMvc.perform(get("/api/v1/beer/{beerId}", UUID.randomUUID().toString())
 				
@@ -67,15 +71,15 @@ class BeerControllerTest {
 								parameterWithName("iscold").description("Is beer cold query param")
 						),
 						responseFields(
-								fieldWithPath("id").description("Id of Beer"),
-                                fieldWithPath("version").description("Version number"),
-                                fieldWithPath("createdDate").description("Date Created"),
-                                fieldWithPath("lastModifiedDate").description("Date Updated"),
-                                fieldWithPath("beerName").description("Beer Name"),
-                                fieldWithPath("beerStyle").description("Beer Style"),
-                                fieldWithPath("upc").description("UPC of Beer"),
-                                fieldWithPath("price").description("Price"),
-                                fieldWithPath("quantityOnHand").description("Quantity On hand")
+								fields.withPath("id").description("Id of Beer").type(UUID.class),
+                                fields.withPath("version").description("Version number").type(String.class),
+                                fields.withPath("createdDate").description("Date Created").type(OffsetDateTime.class),
+                                fields.withPath("lastModifiedDate").description("Date Updated").type(OffsetDateTime.class),
+                                fields.withPath("beerName").description("Beer Name").type(String.class),
+                                fields.withPath("beerStyle").description("Beer Style").type(BeerStyleEnum.class),
+                                fields.withPath("upc").description("UPC of Beer").type(String.class),
+                                fields.withPath("price").description("Price").type(BigDecimal.class),
+                                fields.withPath("quantityOnHand").description("Quantity On hand").type(Integer.class)
 						)						
 					));
 	}
@@ -86,6 +90,7 @@ class BeerControllerTest {
 		BeerDto beerDto = getValidBeerDto();
 		String beerDtoJson = objtMapper.writeValueAsString(beerDto);
 		
+		// This works with fields.withPath() below
 		ConstrainedFields fields = new ConstrainedFields(BeerDto.class);
 		
 		mockMvc.perform(post("/api/v1/beer/")
