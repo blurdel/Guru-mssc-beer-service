@@ -13,6 +13,9 @@ import com.blurdel.msscbeerservice.repositories.BeerRepository;
 public class BeerLoader implements CommandLineRunner {
 
 	private final BeerRepository beerRepository;
+	public static final String BEER_1_UPC = "063123456006";
+	public static final String BEER_2_UPC = "063123456007";
+	public static final String BEER_3_UPC = "063123456008";
 	
 	
 	public BeerLoader(BeerRepository beerRepository) {
@@ -32,17 +35,28 @@ public class BeerLoader implements CommandLineRunner {
 					.beerStyle("IPA")
 					.quantityToBrew(200)
 					.minOnHand(12)
-					.upc(3370100000001L)
+					.upc(BEER_1_UPC)
 					.price(new BigDecimal(12.95))
 					.build()					
 					);
+			
 			beerRepository.save(Beer.builder()
 					.beerName("Galaxy Cat")
 					.beerStyle("PALE_ALE")
 					.quantityToBrew(200)
 					.minOnHand(12)
-					.upc(3370100000002L)
+					.upc(BEER_2_UPC)
 					.price(new BigDecimal(10.95))
+					.build()					
+					);
+			
+			beerRepository.save(Beer.builder()
+					.beerName("No Hammers on the Bar")
+					.beerStyle("PALE_ALE")
+					.quantityToBrew(200)
+					.minOnHand(12)
+					.upc(BEER_3_UPC)
+					.price(new BigDecimal(15.95))
 					.build()					
 					);
 		}
