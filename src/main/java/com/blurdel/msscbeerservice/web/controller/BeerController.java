@@ -13,32 +13,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.blurdel.msscbeerservice.services.BeerService;
 import com.blurdel.msscbeerservice.web.model.BeerDto;
 
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/beer")
 @RestController
 public class BeerController {
 
+	private final BeerService beerService;
+	
+	
 	@GetMapping("/{beerId}")
 	public ResponseEntity<BeerDto> getBeer(@PathVariable("beerId") UUID beerId) {
-		
-		// TODO: impl
-		return new ResponseEntity<>(BeerDto.builder().build(), HttpStatus.OK);
+		return new ResponseEntity<>(beerService.getById(beerId), HttpStatus.OK);
 	}
 	
 	@PostMapping
 	public ResponseEntity saveBeer(@Validated @RequestBody BeerDto beerDto) {
-		
-		// TODO: impl
-		return new ResponseEntity(HttpStatus.CREATED);
+		return new ResponseEntity<>(beerService.saveNewBeer(beerDto), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{beerId}")
 	public ResponseEntity updateBeer(@PathVariable("beerId") UUID beerId, @Validated @RequestBody BeerDto beerDto) {
-		
-		// TODO: impl		
-		return new ResponseEntity(HttpStatus.NO_CONTENT);		
+		return new ResponseEntity<>(beerService.updateBeer(beerId, beerDto), HttpStatus.NO_CONTENT);		
 	}
 	
 }
