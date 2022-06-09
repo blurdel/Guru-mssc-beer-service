@@ -9,7 +9,7 @@ import com.blurdel.msscbeerservice.domain.Beer;
 import com.blurdel.msscbeerservice.repositories.BeerRepository;
 
 
-@Component
+//@Component
 public class BeerLoader implements CommandLineRunner {
 
 	private final BeerRepository beerRepository;

@@ -44,7 +44,7 @@ import static org.mockito.BDDMockito.given;
 //This changes values in gen-snippets files down target/generated-snippets/v1/beer/
 //@AutoConfigureRestDocs(uriScheme = "https", uriHost = "dev.springframework.guru", uriPort = 80) 
 
-@WebMvcTest(BeerController.class)
+@WebMvcTest(BeerController.class)  // NOTE! @WebMvcTest does not bring in the service layer, so need to add @MockBean for services!
 //@ComponentScan(basePackages = "com.blurdel.msscbeerservice.web.mappers")
 class BeerControllerTest {
 
@@ -97,6 +97,7 @@ class BeerControllerTest {
 	@Test
     void getBeerById() throws Exception {
 
+		// mockito
         given(beerService.getById(any())).willReturn(getValidBeerDto());
 
         mockMvc.perform(get("/api/v1/beer/" + UUID.randomUUID().toString()).accept(MediaType.APPLICATION_JSON))
@@ -139,6 +140,7 @@ class BeerControllerTest {
 		BeerDto beerDto = getValidBeerDto();
 		String beerDtoJson = objMapper.writeValueAsString(beerDto);
 		
+		// mockito
 		given(beerService.saveNewBeer(any())).willReturn(getValidBeerDto());
 				
 		mockMvc.perform(post("/api/v1/beer/")
@@ -150,6 +152,7 @@ class BeerControllerTest {
 	@Test
 	void updateBeerById() throws Exception {
 		
+		// mockito
 		given(beerService.updateBeer(any(), any())).willReturn(getValidBeerDto());
 
 		BeerDto beerDto = getValidBeerDto();
