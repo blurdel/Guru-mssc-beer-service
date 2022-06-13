@@ -11,9 +11,9 @@ import com.blurdel.msscbeerservice.web.model.BeerStyleEnum;
 
 public interface BeerService {
 
-	BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest);
+	BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest, Boolean showInventoryOnHand);
 	
-	BeerDto getById(UUID beerId);
+	BeerDto getById(UUID beerId, Boolean showInventoryOnHand);
 
 	BeerDto saveNewBeer(BeerDto beerDto);
 
