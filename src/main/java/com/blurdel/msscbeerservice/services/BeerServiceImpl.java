@@ -3,6 +3,7 @@ package com.blurdel.msscbeerservice.services;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -16,8 +17,10 @@ import com.blurdel.msscbeerservice.web.model.BeerPagedList;
 import com.blurdel.msscbeerservice.web.model.BeerStyleEnum;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class BeerServiceImpl implements BeerService {
@@ -25,9 +28,11 @@ public class BeerServiceImpl implements BeerService {
 	private final BeerRepository repo;
 	private final BeerMapper mapper;
 	
-	
+	@Cacheable(cacheNames = "beerListCache", condition = "#showInventoryOnHand == false")
 	@Override
 	public BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest, Boolean showInventoryOnHand) {
+		
+		log.debug("##### BeerPagedList was called vs caching!");
 		
 		BeerPagedList beerPagedList;
         Page<Beer> beerPage;
@@ -74,6 +79,7 @@ public class BeerServiceImpl implements BeerService {
         return beerPagedList;
 	}
 	
+	@Cacheable(cacheNames = "beerCache", key = "#beerId", condition = "#showInventoryOnHand == false")
 	@Override
 	public BeerDto getById(UUID beerId, Boolean showInventoryOnHand) {
 		if (showInventoryOnHand) {

@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 public class BeerPagedList extends PageImpl<BeerDto> implements Serializable {
 
-	private static final long serialVersionUID = -5136820672350837516L;
+	private static final long serialVersionUID = -8991741962584486399L;
 
 	@JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public BeerPagedList(@JsonProperty("content") List<BeerDto> content,
