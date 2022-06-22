@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.blurdel.msscbeerservice.bootstrap.BeerLoader;
 
 
-//@Disabled // utility for manual testing
+//@Disabled // NOTE: Tests require beer-inventory-service to be running
 @SpringBootTest
 class BeerInventoryServiceRestTemplateImplTest {
 
