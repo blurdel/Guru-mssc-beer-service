@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	
-	<!-- Now we point to our BOM -->
+	<!-- Now we point to our BOM for common dependencies -->
 	<parent>
 		<groupId>guru.springframework</groupId>
 		<artifactId>mssc-brewery-bom</artifactId>
@@ -20,7 +20,7 @@
 	
 	
 	<dependencies>
-				
+
 		<!-- These 3 for ehcache -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -34,74 +34,7 @@
 			<groupId>org.ehcache</groupId>
 			<artifactId>ehcache</artifactId>
 		</dependency>
-		
-		<!-- Rest Docs -->
-		<dependency>
-            <groupId>org.springframework.restdocs</groupId>
-            <artifactId>spring-restdocs-mockmvc</artifactId>
-            <scope>test</scope>
-        </dependency>
         
 	</dependencies>
-
-	<build>
-		<plugins>
-			
-			<!-- Rest Docs -->
-			<plugin>
-                <groupId>org.asciidoctor</groupId>
-                <artifactId>asciidoctor-maven-plugin</artifactId>
-                <version>2.2.2</version> <!-- sfg was 1.5.3 -->
-                <executions>
-                    <execution>
-                        <id>generate-docs</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>process-asciidoc</goal>
-                        </goals>
-                        <configuration>
-                            <backend>html</backend>
-                            <doctype>book</doctype>
-                        </configuration>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.springframework.restdocs</groupId>
-                        <artifactId>spring-restdocs-asciidoctor</artifactId>
-                        <version>${spring-restdocs.version}</version>  <!-- dependency comes from parent pom, also used in dependency above -->
-                    </dependency>
-                </dependencies>
-            </plugin>
-            
-            <!-- Copies REST generated-docs to target/classes/static/docs -->
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <!-- <version>2.7</version>  -->
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>
-                                ${project.build.outputDirectory}/static/docs
-                            </outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>
-                                        ${project.build.directory}/generated-docs
-                                    </directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-		</plugins>
-	</build>
 
 </project>
