@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.blurdel.msscbeerservice.bootstrap.BeerLoader;
 
 
-//@Disabled // NOTE: Tests require beer-inventory-service to be running
+@Disabled // NOTE: Tests require beer-inventory-service to be running
 @SpringBootTest
 class BeerInventoryServiceRestTemplateImplTest {
 
@@ -23,8 +23,8 @@ class BeerInventoryServiceRestTemplateImplTest {
 	
 	@Test
 	void getOnhandInventory() {
-		Integer qoh = service.getOnhandInventory(BeerLoader.BEER_1_UUID);
-		System.out.println("qoh=" + qoh);
+//		Integer qoh = service.getOnhandInventory(BeerLoader.BEER_1_UUID);
+//		System.out.println("qoh=" + qoh);
 	}
 
 }
