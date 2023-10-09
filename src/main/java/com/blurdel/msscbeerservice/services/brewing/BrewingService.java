@@ -1,4 +1,4 @@
-package com.blurdel.msscbeerservice.services;
+package com.blurdel.msscbeerservice.services.brewing;
 
 import java.util.List;
 
