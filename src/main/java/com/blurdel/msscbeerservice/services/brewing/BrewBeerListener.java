@@ -3,6 +3,7 @@ package com.blurdel.msscbeerservice.services.brewing;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.blurdel.msscbeerservice.config.JmsConfig;
 import com.blurdel.msscbeerservice.domain.Beer;
@@ -23,7 +24,7 @@ public class BrewBeerListener {
 	private final BeerRepository beerRepo;
 	private final JmsTemplate jmsTempalte;
 	
-
+	@Transactional
 	@JmsListener(destination = JmsConfig.BREWING_REQUEST_QUE)
 	public void listen(BrewBeerEvent event) {
 		BeerDto beerDto = event.getBeerDto();
