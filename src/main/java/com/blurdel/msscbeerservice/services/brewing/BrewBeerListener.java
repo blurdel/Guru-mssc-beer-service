@@ -7,11 +7,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.blurdel.msscbeerservice.config.JmsConfig;
 import com.blurdel.msscbeerservice.domain.Beer;
-import com.blurdel.msscbeerservice.events.BrewBeerEvent;
-import com.blurdel.msscbeerservice.events.NewInventoryEvent;
 import com.blurdel.msscbeerservice.repositories.BeerRepository;
 import com.blurdel.msscbeerservice.web.model.BeerDto;
 
+import guru.sfg.common.events.BrewBeerEvent;
+import guru.sfg.common.events.NewInventoryEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

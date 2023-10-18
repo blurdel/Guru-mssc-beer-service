@@ -1,4 +1,4 @@
-package com.blurdel.msscbeerservice.events;
+package guru.sfg.common.events;
 
 import com.blurdel.msscbeerservice.web.model.BeerDto;
 

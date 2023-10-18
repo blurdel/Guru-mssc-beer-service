@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.blurdel.msscbeerservice.config.JmsConfig;
 import com.blurdel.msscbeerservice.domain.Beer;
-import com.blurdel.msscbeerservice.events.BrewBeerEvent;
 import com.blurdel.msscbeerservice.repositories.BeerRepository;
 import com.blurdel.msscbeerservice.services.inventory.BeerInventoryService;
 import com.blurdel.msscbeerservice.web.mappers.BeerMapper;
 
+import guru.sfg.common.events.BrewBeerEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,7 +39,7 @@ public class BrewingService {
 			log.debug("Min On-hand is: " + beer.getMinOnHand());
 			log.debug("Inventory is: " + invQOH);
 			
-			if (beer.getMinOnHand() <= invQOH) {
+			if (beer.getMinOnHand() >= invQOH) {
 				jmsTemplate.convertAndSend(JmsConfig.BREWING_REQUEST_QUE, new BrewBeerEvent(beerMapper.beerToBeerDto(beer)));
 			}
 		});
